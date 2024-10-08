@@ -10,7 +10,7 @@ como información detallada o lugares cercanos.
 1. Primero clonamos el repositorio:
 
 ```sh
-git https://github.com/stiv120/gestion-eventos
+git clone https://github.com/stiv120/gestion-eventos
 ```
 
 2. accedemos al directorio en la ruta en que lo descarguemos:
