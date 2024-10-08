@@ -1,6 +1,6 @@
 ## API de Gestión de Eventos
 
-API RESTful para una plataforma de gestión de eventos. Esta plataforma
+API RESTful hecha en nodejs con docker para una plataforma de gestión de eventos. Esta plataforma
 permitirá a los usuarios crear, promocionar y gestionar eventos de manera efectiva. Los
 usuarios podrán registrarse para asistir a eventos al igual que ver detalles sobre los eventos
 como información detallada o lugares cercanos.
