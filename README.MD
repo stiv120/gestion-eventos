@@ -5,7 +5,7 @@ permitirá a los usuarios crear, promocionar y gestionar eventos de manera efect
 usuarios podrán registrarse para asistir a eventos al igual que ver detalles sobre los eventos
 como información detallada o lugares cercanos.
 
-Nota: para este proyecto debemos tener instalado docker, si no lo tienes instalado este es el enlace para descargar de acuerdo a nuestro sistema operativo: https://www.docker.com/products/docker-desktop/, tener instalado git, por acá dejo el enlace por si no lo tienen: https://git-scm.com/downloads y node.js (no es necesario ya que viene instalado en nuestro docker compose, pero si queremos usar los comandos de npm en nuestra maquina local debemos tenerlo instalado) por acá de la instalación: https://nodejs.org/en/download/package-manager
+Nota: para este proyecto debemos tener instalado docker, si no lo tienes instalado este es el enlace para descargar de acuerdo a nuestro sistema operativo: https://www.docker.com/products/docker-desktop/, tener instalado git, por acá dejo el enlace por si no lo tienen: https://git-scm.com/downloads y node.js (no es necesario ya que viene instalado en nuestro docker compose, pero si queremos usar los comandos de npm en nuestra maquina local debemos tenerlo instalado) por acá el link de la descarga: https://nodejs.org/en/download/package-manager
 
 ## Instalación
 
@@ -46,6 +46,6 @@ Ya con esto estamos dentro del contenedor y podemos usar los comandos de npm sin
 El comando de docker nos desplegará 5 réplicas de la aplicación en el puerto especificado: 3000, ya con esto tenemos acceso a la api.
 Además de esto, en consola nos mostrará el link con la documentación de las api con swagger, todo esto nos aparecerá en nuestra consola: http://localhost:3000/api-docs.
 
-### Conexión a la base de datos
+### Administración a la base de datos
 
-Alojamos en nuestro contenedor de docker una imagen de phpmyadmin para administrar la bd ingresando al siguiente enlace http://localhost:8081/ esto nos llevará a la consola administrativa de phpmyadmin y podemos observar que ya está creada la base de datos events_db con las tablas para nuestra aplicación.
+Alojamos en nuestro contenedor de docker una imagen de phpmyadmin para administrar la bd, la conexión se realiza al momento de iniciar nuestra aplicación de acuerdo al env, ingresamos al siguiente enlace http://localhost:8081/ esto nos llevará a la consola administrativa de phpmyadmin y podemos observar que ya está creada la base de datos events_db con las tablas para nuestra aplicación.
