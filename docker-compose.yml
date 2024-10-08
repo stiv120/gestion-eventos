@@ -1,0 +1,74 @@
+services:
+  mysqldb:
+    image: mysql:5.7.22
+    tty: true
+    env_file: ./.env
+    environment:
+      - MYSQL_USER=${MYSQLDB_USER}
+      - MYSQL_PASSWORD=${MYSQLDB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQLDB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQLDB_DATABASE}
+      - SERVICE_TAGS=dev
+      - SERVICE_NAME=mysql
+    ports:
+      - ${MYSQLDB_LOCAL_PORT}:${MYSQLDB_DOCKER_PORT}
+    volumes:
+      - ./mysql_data:/var/lib/mysql # Volumen persistente para los datos de MySQL
+      - ./mysql_config/my.cnf:/etc/mysql/my.cnf # Monta el archivo de configuración
+      - ./src/infrastructure/database/scripts:/docker-entrypoint-initdb.d # Montaje para los scripts de inicialización
+    command:
+      ["mysqld", "--init-file", "/docker-entrypoint-initdb.d/events_db.sql"]
+    networks:
+      - app-network
+
+  app:
+    build: .
+    env_file: ./.env
+    environment:
+      - DB_HOST=${MYSQLDB_HOST}
+      - DB_USER=${MYSQLDB_USER}
+      - DB_PASSWORD=${MYSQLDB_PASSWORD}
+      - DB_NAME=${MYSQLDB_DATABASE}
+      - DB_PORT=${MYSQLDB_DOCKER_PORT}
+    volumes:
+      - .:/gestion-eventos:delegated
+    expose:
+      - 3000
+    command: sh -c "npm install && npm run start"
+    deploy:
+      mode: replicated
+      replicas: 5
+    networks:
+      - app-network
+
+  nginx:
+    restart: always
+    image: nginx:latest
+    ports:
+      - "3000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - mysqldb
+    environment:
+      PMA_USER: ${MYSQLDB_USER}
+      PMA_PASSWORD: ${MYSQLDB_ROOT_PASSWORD}
+      PMA_HOST: mysqldb
+    restart: always
+    ports:
+      - "8081:80"
+    networks:
+      - app-network
+
+#Networks
+networks:
+  app-network:
+    driver: bridge

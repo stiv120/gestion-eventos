@@ -1,0 +1,36 @@
+{
+  "name": "gestion-eventos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "watch-poll": "nodemon --watch . --delay 1 seconds src/infrastructure/web-server/server.js",
+    "prod": "npm run production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/infrastructure/web-server/server.js",
+    "start": "nodemon --legacy-watch src/infrastructure/web-server/server.js"
+  },
+  "keywords": [],
+  "author": "Javier Stiven Chávez Gallego",
+  "license": "ISC",
+  "description": "API de gestión de eventos.",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-validator": "^7.2.0",
+    "glob": "^9.3.5",
+    "jsonwebtoken": "^9.0.2",
+    "lru-cache": "^11.0.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.11.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^10.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

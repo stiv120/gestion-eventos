@@ -1,0 +1,64 @@
+Para implementar un flujo de integración y despliegue continuo (CI/CD) utilizando GitHub Actions, seguiría estos pasos:
+
+Preparar el Repositorio:
+
+Primero, me aseguro de que el código esté en un repositorio de GitHub.
+Crear el Archivo de Workflow:
+
+Dentro de mi repositorio, creo un directorio llamado .github/workflows.
+En ese directorio, añado un archivo YAML, por ejemplo ci-cd.yml, para definir el flujo de trabajo.
+Definir el Workflow en el Archivo YAML:
+
+En el archivo YAML, configuro el flujo de trabajo de la siguiente manera:
+
+name: CI/CD Pipeline  # Defino el nombre del flujo de trabajo.
+
+on:
+  push:
+    branches:
+      - main  # Especifico que el flujo de trabajo se activa con push a la rama main.
+  pull_request:
+    branches:
+      - main  # También se activa con pull requests a la rama main.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Indico el entorno en el que se ejecutará el trabajo, en este caso ubuntu-latest.
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Uso la acción actions/checkout para clonar el código del repositorio.
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'  # Configuro el entorno de Node.js.
+
+      - name: Install dependencies
+        run: npm install  # Instalo las dependencias.
+
+      - name: Build
+        run: npm run build  # Compilo la aplicación.
+
+      - name: Run tests
+        run: npm test  # Ejecuto las pruebas unitarias.
+
+  deploy:
+    runs-on: ubuntu-latest  # Indico el entorno en el que se ejecutará el trabajo, en este caso ubuntu-latest.
+    needs: build  # Indico que este trabajo depende del trabajo build, asegurando que el despliegue solo ocurra si la construcción es exitosa.
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Clono el código nuevamente.
+
+      - name: Deploy
+        run: |
+          echo "Deploying application..."
+          ./deploy.sh  # Ejecuto el script de despliegue (deploy.sh) y utilizo secretos (secrets.API_KEY) para manejar credenciales sensibles.
+        env:
+          API_KEY: ${{ secrets.API_KEY }}  # Uso secretos para manejar credenciales sensibles.
+
+
+Accedo a la configuración del repositorio en GitHub y añado los secretos necesarios, como API_KEY en este caso.
+Monitoreo del Workflow:
+
+Una vez configurado el flujo de trabajo, GitHub Actions ejecutará automáticamente el pipeline basado en los eventos que he especificado.
+Puedo revisar el estado de las ejecuciones del flujo de trabajo en la pestaña "Actions" de mi repositorio.
