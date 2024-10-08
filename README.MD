@@ -22,17 +22,14 @@ cd gestion-eventos
 3. Como está alojado en una imagen de docker, ejecutamos el siguiente comando:
 
 ```sh
-docker-compose up -d
+docker compose up
 ```
-
-Esto nos desplegará la aplicación en el puerto especificado: 3000, ya con esto tenemos acceso a la api, además de est
 
 ### Iniciar aplicación
 
-El comando de docker nos desplegará la aplicación en el puerto especificado: 3000, ya con esto tenemos acceso a la api.
-
-Además de esto, en consola nos mostrará el link con la documentación de las api con swagger
+El comando de docker nos desplegará 5 réplicas de la aplicación en el puerto especificado: 3000, ya con esto tenemos acceso a la api.
+Además de esto, en consola nos mostrará el link con la documentación de las api con swagger, todo esto nos aparecerá en nuestra consola.
 
 ### Conexión a la base de datos
 
-Alojamos en nuestro contenedor de docker una imagen de phpmyadmin para administrar la bd ingresando al siguiente enlace http://localhost:8081/ esto nos llevará a la consola adminsitrativa de php myadmin y podemos observar que ya está creada la base de datos events_db con las tablas para nuestra aplicación.
+Alojamos en nuestro contenedor de docker una imagen de phpmyadmin para administrar la bd ingresando al siguiente enlace http://localhost:8081/ esto nos llevará a la consola administrativa de phpmyadmin y podemos observar que ya está creada la base de datos events_db con las tablas para nuestra aplicación.
